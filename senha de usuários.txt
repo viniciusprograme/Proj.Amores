@@ -1,0 +1,40 @@
+Usuário 1:
+Usuário: Saymon
+email: saymon@gmail.com
+senha: 8Q{sH71q*:^3
+
+Usuário 2:
+Usuário: Angelo
+email: angelo@gmail.com
+senha: Pneu@123
+senha antiga: Ab12345@
+
+Super-usuário:
+Usuário: Lucas
+email: lucas@gmail.com
+senha: 1234$$$$
+
+Novo Registro:
+Usuário: LUCAS
+email: lucasferreira85238123@gmail.com
+senha: http://127.0.0.1:8000/
+
+Novo Registro:
+Usuário: Lucas Gomes
+email: lucas22@gmail.com
+senha: lucas123456
+
+Novo Registro:
+Usuário: LUCAS
+email: lucasgomes24@gmail.com
+senha: http://127.0.0.1:8000/
+
+Novo Registro:
+Usuário: gustavo
+email: gustavo22@gmail.com
+senha: big123456
+
+Novo Registro:
+Usuário: vini jr
+email: vinijr10@gmail.com
+senha: jogador123
