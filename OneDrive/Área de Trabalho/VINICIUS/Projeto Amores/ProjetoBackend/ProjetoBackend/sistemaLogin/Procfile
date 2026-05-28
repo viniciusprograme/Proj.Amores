@@ -1,0 +1,1 @@
+echo web: gunicorn sistemaLogin.wsgi --log-file - > Procfile
