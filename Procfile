@@ -1,1 +1,1 @@
-echo web: gunicorn sistemaLogin.wsgi --log-file - > Procfile
+web: gunicorn sistemaLogin.wsgi
