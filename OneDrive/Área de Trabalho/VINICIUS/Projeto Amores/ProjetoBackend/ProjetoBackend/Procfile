@@ -1,1 +1,1 @@
-web: gunicorn sistemaLogin.wsgi --log-file - 
+web: gunicorn sistemaLogin.wsgi:application
