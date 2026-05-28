@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Restrito - Instituto Amores</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de login de admin, focando em um tom mais escuro e sério */
+        .admin-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            z-index: -1;
+        }
+        
+        .admin-glass {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #10b981, #047857);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .admin-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .admin-input:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-background"></div>
+    
+    <main class="glass-container admin-glass" style="max-width: 400px; padding: 2.5rem; border-radius: 20px;">
+        <div class="logo-container" style="margin-bottom: 1.5rem; text-align: center;">
+            <a href="/">
+                <img src="{% static '240128288_101882762220758_514143314545400136_n.jpg' %}" alt="Amores Instituto" class="logo" style="max-width: 100px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1);">
+            </a>
+        </div>
+
+        <div class="mission-text" style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 1.6rem; color: #f3f4f6;"><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Acesso Admin</h1>
+            <p style="font-size: 0.9rem; color: #9ca3af; margin-top: 0.5rem;">Área restrita à gestão do Instituto.</p>
+        </div>
+
+        {% if messages %}
+            <div style="margin-bottom: 1.5rem;">
+                {% for message in messages %}
+                    <div style="padding: 0.8rem; border-radius: 8px; font-size: 0.9rem; text-align: center;
+                        {% if message.tags == 'error' %}background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5;{% else %}background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #86efac;{% endif %}">
+                        <i class="fa-solid {% if message.tags == 'error' %}fa-triangle-exclamation{% else %}fa-circle-check{% endif %}"></i> {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="schedule-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+            {% csrf_token %}
+            
+            <div class="input-group">
+                <label for="{{ form.username.id_for_label }}" style="color: #d1d5db; font-size: 0.9rem;"><i class="fa-solid fa-envelope"></i> E-mail Institucional</label>
+                <input type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" class="form-control admin-input" required style="width: 100%; padding: 0.8rem; border-radius: 8px;">
+            </div>
+
+            <div class="input-group" style="position: relative;">
+                <label for="{{ form.password.id_for_label }}" style="color: #d1d5db; font-size: 0.9rem;"><i class="fa-solid fa-lock"></i> Senha de Acesso</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="password" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" class="form-control admin-input" required style="width: 100%; padding: 0.8rem; padding-right: 2.5rem; border-radius: 8px;">
+                    <i class="fa-regular fa-eye" id="togglePassword" style="position: absolute; right: 1rem; color: #9ca3af; cursor: pointer;"></i>
+                </div>
+            </div>
+            
+            <button type="submit" class="admin-btn" style="margin-top: 1rem;">
+                Autenticar Sistema <i class="fa-solid fa-arrow-right-to-bracket" style="margin-left: 0.5rem;"></i>
+            </button>
+        </form>
+
+        <div style="margin-top: 2rem; text-align: center;">
+            <a href="/" style="color: #6b7280; font-size: 0.85rem; text-decoration: none; transition: color 0.2s;">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao site
+            </a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('input[type="password"]');
+
+            if(togglePassword && password) {
+                togglePassword.addEventListener('click', function (e) {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    this.classList.toggle('fa-eye');
+                    this.classList.toggle('fa-eye-slash');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

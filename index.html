@@ -1,89 +1,133 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amores Instituto</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-wrapper"></div>
+    
+    <main class="glass-container">
+        <div class="logo-container">
+            <img src="240128288_101882762220758_514143314545400136_n.jpg" alt="Amores Instituto" class="logo" id="logo-img">
+        </div>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.13.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.13.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.13.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+        <div class="mission-text">
+            <h1>Bem-vindo ao <span class="highlight">Amores Instituto</span></h1>
+            <p>Juntos, podemos transformar vidas. Escolha como deseja se conectar e apoiar nossa causa.</p>
+        </div>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+        <div class="action-buttons">
+            <button class="btn btn-pix" onclick="openModal('pixModal')">
+                <i class="fa-brands fa-pix"></i> Doar com Pix
+            </button>
+            <button class="btn btn-about" onclick="openModal('aboutModal')">
+                <i class="fa-solid fa-circle-info"></i> Sobre Nós
+            </button>
+            <button class="btn btn-schedule" onclick="openModal('scheduleModal')">
+                <i class="fa-regular fa-calendar-check"></i> Agendar Visita
+            </button>
+            <button class="btn btn-location" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=R.+Alpinópolis,+323+-+Sapiranga-Coité,+Fortaleza+-+CE,+60833-036', '_blank')">
+                <i class="fa-solid fa-map-location-dot"></i> Ver Rota
+            </button>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Pix Modal -->
+    <div class="modal" id="pixModal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('pixModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Faça sua Doação pelo Pix</h2>
+            </div>
+            <div class="modal-body">
+                <p>Escaneie o QR Code abaixo ou utilize nossa chave PIX para nos ajudar a manter nossos projetos ativos e acolher quem mais precisa.</p>
+                <div class="qr-code-placeholder">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <div class="pix-key-container">
+                    <span><strong>Chave PIX (CNPJ):</strong> 00.000.000/0001-00</span>
+                    <button class="btn-copy" onclick="copyPix()"><i class="fa-regular fa-copy"></i> Copiar</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content glass-card about-card">
+            <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+            <div class="modal-header">
+                <h2>🌍 Sobre o Instituto Amores</h2>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p class="about-text">
+                    O <strong>Instituto Amores</strong> é uma organização social sem fins lucrativos localizada no bairro Sapiranga, em Fortaleza–CE, dedicada à promoção de ações solidárias e ao fortalecimento da comunidade local.
+                </p>
+                <p class="about-text">
+                    Fundado com o propósito de transformar vidas por meio do cuidado, da empatia e da união, o Instituto Amores desenvolve projetos voltados para famílias em situação de vulnerabilidade social, oferecendo apoio através de iniciativas educativas, assistenciais e comunitárias.
+                </p>
+                <p class="about-text">
+                    Nosso trabalho é guiado pelo compromisso de gerar impacto positivo, incentivando a inclusão social, o desenvolvimento humano e a construção de um futuro com mais oportunidades para todos.
+                </p>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+                <h3 class="about-subtitle" style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--primary); font-family: 'Outfit', sans-serif;">💙 Nossa Missão</h3>
+                <p class="about-text">Promover o bem-estar social por meio de ações solidárias, contribuindo para a melhoria da qualidade de vida das pessoas e fortalecendo os laços comunitários.</p>
+
+                <h3 class="about-subtitle" style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--primary); font-family: 'Outfit', sans-serif;">👁️ Nossa Visão</h3>
+                <p class="about-text">Ser referência em transformação social na comunidade, inspirando outras iniciativas e ampliando o alcance de nossas ações.</p>
+
+                <h3 class="about-subtitle" style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--primary); font-family: 'Outfit', sans-serif;">🤝 Nossos Valores</h3>
+                <ul class="about-values" style="list-style-type: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem;">
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Solidariedade</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Empatia</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Respeito</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Compromisso social</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Transparência</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('scheduleModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Agende sua Visita</h2>
+            </div>
+            <div class="modal-body">
+                <p>Venha tomar um café conosco e conhecer de perto nossos projetos e nossa sede.</p>
+                <form id="schedule-form" class="schedule-form">
+                    <div class="input-group">
+                        <label for="name">Seu Nome</label>
+                        <input type="text" id="name" required placeholder="Digite seu nome completo">
+                    </div>
+                    <div class="input-group">
+                        <label for="date">Data da Visita</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="time">Horário Preferencial</label>
+                        <select id="time" required>
+                            <option value="">Selecione um horário</option>
+                            <option value="09:00">09:00 (Manhã)</option>
+                            <option value="10:00">10:00 (Manhã)</option>
+                            <option value="14:00">14:00 (Tarde)</option>
+                            <option value="15:00">15:00 (Tarde)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary-submit">Confirmar Agendamento</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>

@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Instituto Amores</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .header-section h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .logout-btn {
+            background: rgba(228, 34, 43, 0.15);
+            color: #ff6b6b;
+            border: 1px solid rgba(228, 34, 43, 0.3);
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logout-btn:hover {
+            background: var(--tertiary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(228, 34, 43, 0.4);
+            border-color: var(--tertiary);
+        }
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.8rem;
+        }
+        
+        /* Tabelas e Listas */
+        .admin-table-container {
+            overflow-x: auto;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0.5rem;
+        }
+        .admin-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .admin-table td {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .admin-table td:first-child {
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        .admin-table td:last-child {
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            text-align: right;
+        }
+        .admin-table tr {
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .admin-table tr:hover td {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .delete-btn-sm {
+            background: rgba(228, 34, 43, 0.1);
+            color: #ff6b6b;
+            border: 1px solid rgba(228, 34, 43, 0.2);
+            cursor: pointer;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .delete-btn-sm:hover {
+            background: var(--tertiary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(228, 34, 43, 0.3);
+        }
+        .badge {
+            background: rgba(0, 168, 89, 0.2);
+            color: #4ade80;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge.admin {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-wrapper"></div>
+    
+    <main class="dashboard-container">
+        <!-- Cabeçalho -->
+        <div class="glass-container" style="padding: 2rem;">
+            <div class="header-section">
+                <div style="display: flex; align-items: center; gap: 1.2rem;">
+                    <div style="background: linear-gradient(135deg, #10b981, #047857); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h1><span class="highlight">Painel Administrativo</span></h1>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.3rem;">Visão geral de usuários e agendamentos do sistema.</p>
+                    </div>
+                </div>
+                <a href="{% url 'logout' %}" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+                </a>
+            </div>
+
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div style="padding: 1rem 1.5rem; border-radius: 10px; font-weight: 500; display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;
+                            {% if message.tags == 'error' %}background: rgba(228, 34, 43, 0.15); border: 1px solid rgba(228, 34, 43, 0.3); color: #ff6b6b;{% else %}background: rgba(0, 168, 89, 0.15); border: 1px solid rgba(0, 168, 89, 0.3); color: #4ade80;{% endif %}">
+                            <i class="fa-solid {% if message.tags == 'error' %}fa-circle-exclamation{% else %}fa-circle-check{% endif %}" style="font-size: 1.2rem;"></i> 
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Seção de Agendamentos -->
+        <div class="glass-card">
+            <h2 class="card-title"><i class="fa-solid fa-calendar-check"></i> Agendamentos do Sistema ({{ agendamentos.count }})</h2>
+            
+            <div class="admin-table-container">
+                {% if agendamentos %}
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Data Marcada</th>
+                            <th>Horário</th>
+                            <th style="text-align: right;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agendamento in agendamentos %}
+                        <tr>
+                            <td>
+                                <div style="font-weight: 600;">{{ agendamento.usuario.first_name|default:agendamento.usuario.username }}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-muted);">{{ agendamento.usuario.email }}</div>
+                            </td>
+                            <td><i class="fa-regular fa-calendar" style="color: var(--primary);"></i> {{ agendamento.data_visita|date:"d/m/Y" }}</td>
+                            <td><i class="fa-regular fa-clock" style="color: var(--secondary);"></i> {{ agendamento.horario_preferencial|time:"H:i" }}</td>
+                            <td>
+                                <form method="post" action="{% url 'excluir_agendamento_admin' agendamento.pk %}" style="margin: 0; display: inline-block;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn-sm" title="Excluir Agendamento" onclick="return confirm('ATENÇÃO: Deseja realmente excluir este agendamento do sistema?');">
+                                        <i class="fa-solid fa-trash"></i> Cancelar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p style="color: var(--text-muted); text-align: center; padding: 2rem 0;">Nenhum agendamento realizado até o momento.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Seção de Usuários -->
+        <div class="glass-card">
+            <h2 class="card-title"><i class="fa-solid fa-users"></i> Usuários Cadastrados ({{ usuarios.count }})</h2>
+            
+            <div class="admin-table-container">
+                {% if usuarios %}
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome / Username</th>
+                            <th>E-mail</th>
+                            <th>Status</th>
+                            <th style="text-align: right;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in usuarios %}
+                        <tr>
+                            <td style="color: var(--text-muted);">#{{ u.id }}</td>
+                            <td style="font-weight: 600;">{{ u.first_name|default:u.username }}</td>
+                            <td>{{ u.email }}</td>
+                            <td>
+                                {% if u.is_superuser or u.groups.all.0.name == 'Administradores' %}
+                                    <span class="badge admin">Admin</span>
+                                {% else %}
+                                    <span class="badge">Visitante</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if u != request.user %}
+                                <form method="post" action="{% url 'excluir_usuario_admin' u.pk %}" style="margin: 0; display: inline-block;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn-sm" title="Excluir Usuário" onclick="return confirm('ATENÇÃO: Deseja realmente excluir o usuário {{ u.username }} do sistema? Todos os dados dele serão apagados permanentemente.');">
+                                        <i class="fa-solid fa-user-xmark"></i> Excluir
+                                    </button>
+                                </form>
+                                {% else %}
+                                <span style="color: var(--text-muted); font-size: 0.9rem;">(Você)</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p style="color: var(--text-muted); text-align: center; padding: 2rem 0;">Nenhum usuário encontrado.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

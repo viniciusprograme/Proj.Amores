@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amores Instituto</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-wrapper"></div>
+    
+    <main class="glass-container">
+        <div class="logo-container">
+            <img src="{% static '240128288_101882762220758_514143314545400136_n.jpg' %}" alt="Amores Instituto" class="logo" id="logo-img">
+        </div>
+
+        <div class="mission-text">
+            <h1>Bem-vindo ao <span class="highlight">Amores Instituto</span></h1>
+            <p>Juntos, podemos transformar vidas. Escolha como deseja se conectar e apoiar nossa causa.</p>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-pix" onclick="openModal('pixModal')">
+                <i class="fa-brands fa-pix"></i> Doar com Pix
+            </button>
+            <button class="btn btn-about" onclick="openModal('aboutModal')">
+                <i class="fa-solid fa-circle-info"></i> Sobre Nós
+            </button>
+            <button class="btn btn-admin" onclick="window.location.href='/admin-login/'" style="background-color: rgba(228, 34, 43, 0.15); color: #ff6b6b; border: 1px solid rgba(228, 34, 43, 0.3);">
+                <i class="fa-solid fa-shield-halved"></i> Área Admin
+            </button>
+            <button class="btn btn-location" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=R.+Alpinópolis,+323+-+Sapiranga-Coité,+Fortaleza+-+CE,+60833-036', '_blank')">
+                <i class="fa-solid fa-map-location-dot"></i> Ver Rota
+            </button>
+            <button class="btn btn-login" onclick="window.location.href='/login/'" style="background-color: var(--primary); color: white; border: 1px solid var(--primary);">
+                <i class="fa-solid fa-right-to-bracket"></i> Usuário
+            </button>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Pix Modal -->
+    <div class="modal" id="pixModal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('pixModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Faça sua Doação pelo Pix</h2>
+            </div>
+            <div class="modal-body">
+                <p>Escaneie o QR Code abaixo ou utilize nossa chave PIX para nos ajudar a manter nossos projetos ativos e acolher quem mais precisa.</p>
+                <div class="qr-code-placeholder">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <div class="pix-key-container">
+                    <span><strong>Chave PIX (CNPJ):</strong> 00.000.000/0001-00</span>
+                    <button class="btn-copy" onclick="copyPix()"><i class="fa-regular fa-copy"></i> Copiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content glass-card about-card">
+            <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+            <div class="modal-header">
+                <h2>🌍 Sobre o Instituto Amores</h2>
+            </div>
+            <div class="modal-body" style="text-align: left;">
+                <p class="about-text">
+                    O <strong>Instituto Amores</strong> é uma organização social sem fins lucrativos localizada no bairro Sapiranga, em Fortaleza–CE, dedicada à promoção de ações solidárias e ao fortalecimento da comunidade local.
+                </p>
+                <p class="about-text">
+                    Fundado com o propósito de transformar vidas por meio do cuidado, da empatia e da união, o Instituto Amores desenvolve projetos voltados para famílias em situação de vulnerabilidade social, oferecendo apoio através de iniciativas educativas, assistenciais e comunitárias.
+                </p>
+                <p class="about-text">
+                    Nosso trabalho é guiado pelo compromisso de gerar impacto positivo, incentivando a inclusão social, o desenvolvimento humano e a construção de um futuro com mais oportunidades para todos.
+                </p>
+
+                <h3 class="about-subtitle" style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--primary); font-family: 'Outfit', sans-serif;">💙 Nossa Missão</h3>
+                <p class="about-text">Promover o bem-estar social por meio de ações solidárias, contribuindo para a melhoria da qualidade de vida das pessoas e fortalecendo os laços comunitários.</p>
+
+                <h3 class="about-subtitle" style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--primary); font-family: 'Outfit', sans-serif;">👁️ Nossa Visão</h3>
+                <p class="about-text">Ser referência em transformação social na comunidade, inspirando outras iniciativas e ampliando o alcance de nossas ações.</p>
+
+                <h3 class="about-subtitle" style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--primary); font-family: 'Outfit', sans-serif;">🤝 Nossos Valores</h3>
+                <ul class="about-values" style="list-style-type: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem;">
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Solidariedade</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Empatia</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Respeito</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Compromisso social</li>
+                    <li style="background: rgba(255, 255, 255, 0.05); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-main); font-weight: 500; border: 1px solid var(--glass-border);">Transparência</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

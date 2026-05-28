@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Agendamento</h2>
+<ul>
+    {% for agendamento in agendamentos %}
+        <li>{{ agendamento.nome }} - {{ agendamento.data_visita }} às {{ agendamento.horario_preferencial }}</li>
+    {% empty %}
+        <li>Nenhum agendamento encontrado.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

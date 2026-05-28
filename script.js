@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             try {
-                // A URL padrão de desenvolvimento do backend Django é http://127.0.0.1:8000
-                const response = await fetch('http://127.0.0.1:8000/api/v1/agendamentos/api/', {
+                // A URL padrão de desenvolvimento do backend Django é https://projamores-production.up.railway.app
+                const response = await fetch('https://projamores-production.up.railway.app', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Erro na requisição:', error);
-                alert('Erro de conexão com o servidor. Verifique se o backend está rodando em http://127.0.0.1:8000.');
+                alert('Erro de conexão com o servidor. Verifique se o backend está rodando em https://projamores-production.up.railway.app.');
             } finally {
                 submitBtn.innerHTML = originalBtnText;
                 submitBtn.disabled = false;
